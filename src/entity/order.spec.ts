@@ -1,41 +1,24 @@
-import { Address } from "./address";
-import { Customer } from "./customer";
+import { Order } from "./order";
+import { OrderItem } from "./order-item";
 
 describe("Order unit tests", () => {
   it("should throw an error when id is empty", () => {
-    expect(() => new Customer("", "John Doe")).toThrowError("Invalid length for id");
+    expect(() => new Order("", "123", [])).toThrowError("Invalid length for id");
   });
 
-  it("should throw an error when name is empty", () => {
-    expect(() => new Customer("123", "")).toThrowError("Invalid length for name");
+  it("should throw an error when customerId is empty", () => {
+    expect(() => new Order("1", "", [])).toThrowError("Invalid length for customerId");
   });
 
-  it("should change name", () => {
-    const customer = new Customer("123", "John Doe");
-    customer.changeName("John Doe 2");
-
-    expect(customer.name).toBe("John Doe 2");
+  it("should throw an error when items is empty", () => {
+    expect(() => new Order("1", "123", [])).toThrowError("Invalid length for items");
   });
 
-  it("should activate customer", () => {
-    const customer = new Customer("123", "John Doe");
-    const adress = new Address("Main Street", 2, "12345-678", "Sao Paulo");
-    customer.address = adress;
+  it("should calculate total", () => {
+    const item1 = new OrderItem("1", "Item 1", 10);
+    const item2 = new OrderItem("2", "Item 2", 20);
+    const order = new Order("1", "123", [item1, item2]);
 
-    customer.activate();
-    expect(customer.isActive()).toBe(true);
-  });
-
-  it("should deactivate customer", () => {
-    const customer = new Customer("123", "John Doe");
-    customer.deactivate();
-
-    expect(customer.isActive()).toBe(false);
-  });
-
-  it("should throw erro when address is undefined", () => {
-    const customer = new Customer("123", "John Doe");
-  
-    expect(() => customer.activate()).toThrowError("Address is undefined");
+    expect(order.total()).toBe(30);
   });
 });

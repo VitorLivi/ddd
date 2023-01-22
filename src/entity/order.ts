@@ -11,6 +11,19 @@ export class Order {
     this._customerId = customerId;
     this._items = items;
     this._total = this.total();
+    this.validate();
+  }
+
+  validate() {
+    this.validateLength(this._id, "id");
+    this.validateLength(this._customerId, "customerId");
+    this.validateLength(this._items, "items");
+  }
+
+  validateLength(param: string | OrderItem[], name: string) {
+    if (param.length === 0) {
+      throw new Error("Invalid length for " + name);
+    }
   }
 
   total(): number {
