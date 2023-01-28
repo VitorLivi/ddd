@@ -18,6 +18,10 @@ export class Order {
     this.validateLength(this._id, "id");
     this.validateLength(this._customerId, "customerId");
     this.validateLength(this._items, "items");
+
+    if (this._items.some(item => item.quantity <= 0)) {
+      throw new Error("Quantity must be greater than zero");
+    }
   }
 
   validateLength(param: string | OrderItem[], name: string) {
