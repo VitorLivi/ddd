@@ -1,5 +1,4 @@
-import { OrderItem } from "./order-item";
-
+import OrderItem from './order-item';
 export class Order {
   private _id: string;
   private _customerId: string;
