@@ -5,6 +5,7 @@ export class Customer {
   private _name: string;
   private _address!: Address;
   private _active: boolean = false;
+  private _rewardPoints: number = 0;
 
   constructor(id: string, name: string) {
     this._id = id;
@@ -21,6 +22,10 @@ export class Customer {
     if (param.length === 0) {
       throw new Error('Invalid length for ' + name);
     }
+  }
+
+  get rewardPoints() {
+    return this._rewardPoints;
   }
 
   get id() {
@@ -59,5 +64,9 @@ export class Customer {
 
   isActive(): boolean {
     return this._active;
+  }
+
+  addRewardPoints(points: number) {
+    this._rewardPoints += points;
   }
 }
