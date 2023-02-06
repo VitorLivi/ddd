@@ -50,6 +50,10 @@ export class Customer {
     this._name = name;
   }
 
+  changeAddress(address: Address) {
+    this._address = address;
+  }
+
   activate() {
     if (!this._address) {
       throw new Error("Address is undefined");
