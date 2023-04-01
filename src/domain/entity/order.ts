@@ -1,4 +1,5 @@
-import OrderItem from './order-item';
+import { OrderItem } from "./order-item";
+
 export class Order {
   private _id: string;
   private _customerId: string;
@@ -11,6 +12,18 @@ export class Order {
     this._items = items;
     this._total = this.total();
     this.validate();
+  }
+
+  public get id(): string {
+    return this._id;
+  }
+
+  public get customerId(): string {
+    return this._customerId;
+  }
+
+  public get items(): OrderItem[] {
+    return this._items;
   }
 
   validate() {
