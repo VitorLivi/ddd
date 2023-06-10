@@ -6,8 +6,8 @@ import {
   ForeignKey,
   BelongsTo,
 } from "sequelize-typescript";
-import {OrderModel} from "./order.model";
 import { ProductModel } from "./product.model";
+import { OrderModel } from "./order.model";
 
 @Table({
   tableName: "order_items",
@@ -29,8 +29,8 @@ export class OrderItemModel extends Model {
   @Column({ allowNull: false })
   declare order_id: string;
 
-  @BelongsTo(() => OrderModel)
-  declare order: ProductModel;
+  @BelongsTo(() => OrderModel, { foreignKey: 'order_id' })
+  declare order: OrderModel
 
   @Column({ allowNull: false })
   declare quantity: number;

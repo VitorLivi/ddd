@@ -38,4 +38,14 @@ export class OrderItem {
   get price(): number {
     return this._price * this._quantity;
   }
+
+  toJSON() {
+    return {
+      id: this._id,
+      name: this._name,
+      price: this._price,
+      productId: this._productId,
+      quantity: this._quantity,
+    };
+  }
 }

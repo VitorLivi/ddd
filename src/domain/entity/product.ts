@@ -1,16 +1,29 @@
+import EventDispatcher from "../event/@shared/event-dispatcher";
+import SendEmailWhenProductIsCreatedHandler from "../event/product/handler/send-email-when-product-is-created.handler";
+import ProductCreatedEvent from '../event/product/product-created.event';
+
 export class Product {
   private _id: string;
   private _name: string;
   private _price: number;
 
+  private eventDispatcher: EventDispatcher;
+
   constructor(
     id: string,
     name: string,
-    price: number
+    price: number,
+    eventDispatcher?: EventDispatcher
   ) {
     this._id = id;
     this._name = name;
     this._price = price;
+
+    if (eventDispatcher) {
+      const productCreatedEvent = new ProductCreatedEvent(this)
+      this.eventDispatcher = eventDispatcher;
+      this.eventDispatcher.notify(productCreatedEvent);
+    }
 
     this.validate();
   }

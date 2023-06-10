@@ -1,3 +1,4 @@
+import { Model } from "sequelize-typescript";
 import { OrderItem } from "./order-item";
 
 export class Order {
@@ -26,12 +27,18 @@ export class Order {
     return this._items;
   }
 
+  public async changeItems(items: OrderItem[]) {
+    this._items = items;
+    this._total = this.total();
+    this.validate();
+  }
+
   validate() {
     this.validateLength(this._id, "id");
     this.validateLength(this._customerId, "customerId");
     this.validateLength(this._items, "items");
 
-    if (this._items.some(item => item.quantity <= 0)) {
+    if (this._items.some((item) => item.quantity <= 0)) {
       throw new Error("Quantity must be greater than zero");
     }
   }
@@ -43,6 +50,15 @@ export class Order {
   }
 
   total(): number {
-    return this._items.reduce((acc, item) => acc + item.price, 0);
+    return this.items.reduce((acc, item) => acc + item.price, 0);
+  }
+
+  toJSON() {
+    return {
+      id: this._id,
+      customerId: this._customerId,
+      items: this._items.map((item) => item.toJSON()),
+      total: this._total,
+    };
   }
 }
