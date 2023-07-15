@@ -2,7 +2,7 @@ import EventDispatcher from "../../@shared/event/event-dispatcher";
 import ProductCreatedEvent from "../event/product-created.event";
 import ProductInterface from "./product.interface";
 
-export class Product implements ProductInterface {
+export class ProductB implements ProductInterface {
   private _id: string;
   private _name: string;
   private _price: number;
@@ -37,7 +37,7 @@ export class Product implements ProductInterface {
   }
 
   get price(): number {
-    return this._price;
+    return this._price * 2;
   }
 
   changeName(name: string) {
